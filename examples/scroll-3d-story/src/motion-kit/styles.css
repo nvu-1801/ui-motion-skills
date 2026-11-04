@@ -1,0 +1,486 @@
+/*
+ * motion-kit styles
+ * ------------------------------------------------------------------
+ * Everything is scoped under .mk- and consumes --mk-* tokens, so the kit can be
+ * dropped into a host site without inheriting (or fighting) its styles.
+ *
+ * The host only has to import this file once and may override the tokens:
+ *   .mk-scene { --mk-accent: #ff6a1a; --mk-font-display: ...; }
+ */
+
+.mk-scene {
+  --mk-bg: #0a0b0d;
+  --mk-fg: #f4f1ea;
+  --mk-muted: #a49e94;
+  --mk-dim: #6e6960;
+  --mk-accent: #ff6a1a;
+  --mk-line: rgba(244, 241, 234, 0.13);
+  --mk-line-soft: rgba(244, 241, 234, 0.06);
+  --mk-font-display: Georgia, "Times New Roman", serif;
+  --mk-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mk-font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --mk-stage-height: 100svh;
+
+  position: relative;
+  isolation: isolate;
+  color: var(--mk-fg);
+  font-family: var(--mk-font-sans);
+  background: var(--mk-bg);
+}
+
+.mk-scene *,
+.mk-scene *::before,
+.mk-scene *::after {
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------------- layout */
+
+.mk-scene__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+  gap: clamp(24px, 3.4vw, 64px);
+  align-items: stretch;
+  max-width: var(--mk-max-width, 1440px);
+  margin-inline: auto;
+  padding-inline: var(--mk-gutter, clamp(16px, 3vw, 48px));
+}
+
+.mk-scene__media {
+  min-width: 0;
+}
+
+.mk-stage {
+  position: sticky;
+  top: 0;
+  height: var(--mk-stage-height);
+  display: grid;
+  place-items: center;
+}
+
+.mk-canvas,
+.mk-poster {
+  position: absolute;
+  inset: 0;
+}
+
+.mk-canvas {
+  z-index: 2;
+}
+
+.mk-canvas canvas {
+  display: block;
+}
+
+.mk-poster {
+  z-index: 1;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  opacity: 1;
+  transition: opacity 0.55s ease;
+}
+
+.mk-scene[data-live="true"] .mk-poster {
+  opacity: 0;
+}
+
+.mk-stage__frame {
+  position: absolute;
+  inset: clamp(10px, 2vw, 26px);
+  z-index: 3;
+  border: 1px solid var(--mk-line-soft);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+.mk-stage__frame::before,
+.mk-stage__frame::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--mk-line);
+}
+
+.mk-stage__frame::before {
+  top: -1px;
+  left: -1px;
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: 20px;
+}
+
+.mk-stage__frame::after {
+  right: -1px;
+  bottom: -1px;
+  border-left: 0;
+  border-top: 0;
+  border-bottom-right-radius: 20px;
+}
+
+.mk-stage__notice {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(14px, 2.4vw, 26px);
+  transform: translateX(-50%);
+  z-index: 4;
+  margin: 0;
+  padding: 8px 14px;
+  border: 1px solid var(--mk-line);
+  border-radius: 999px;
+  background: rgba(10, 11, 13, 0.88);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--mk-muted);
+  text-align: center;
+  max-width: min(92%, 420px);
+}
+
+/* --------------------------------------------------------------- chapters */
+
+.mk-scene__story {
+  min-width: 0;
+  position: relative;
+  z-index: 4;
+}
+
+.mk-chapters {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mk-chapters__item {
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+}
+
+.mk-chapter {
+  width: 100%;
+  max-width: 34rem;
+  padding-block: clamp(24px, 4vh, 52px);
+  opacity: 0.58;
+  transform: translateY(8px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  scroll-margin-top: 24px;
+}
+
+.mk-chapter[data-active="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+.mk-chapter__head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 14px;
+  font-family: var(--mk-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mk-chapter__index {
+  color: var(--mk-accent);
+}
+
+.mk-chapter__kicker {
+  color: var(--mk-dim);
+}
+
+.mk-chapter__title {
+  margin: 0 0 14px;
+  font-family: var(--mk-font-display);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.mk-chapter__body {
+  margin: 0;
+  color: var(--mk-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 46ch;
+}
+
+.mk-chapter__points {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.mk-chapter__points li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 0.9rem;
+  color: var(--mk-muted);
+}
+
+.mk-chapter__points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 1px;
+  background: var(--mk-accent);
+}
+
+.mk-scene__cta {
+  padding-block: clamp(8px, 4vh, 48px) clamp(40px, 10vh, 96px);
+}
+
+.mk-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: var(--mk-accent);
+  color: #0a0b0d;
+  font-family: var(--mk-font-sans);
+  font-size: 0.94rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mk-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 34px -16px rgba(255, 106, 26, 0.9);
+}
+
+.mk-button:focus-visible {
+  outline: 2px solid var(--mk-fg);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------- poster */
+
+.mk-fallback {
+  display: grid;
+  place-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: clamp(16px, 3vw, 40px);
+}
+
+.mk-fallback__device {
+  position: relative;
+  width: min(76%, 430px);
+  aspect-ratio: 16 / 10;
+  padding: 9px;
+  border-radius: 16px;
+  border: 1px solid rgba(244, 241, 234, 0.16);
+  background: linear-gradient(160deg, #1b1e24 0%, #0d0f12 62%);
+  box-shadow: 0 50px 100px -60px #000, inset 0 1px 0 rgba(255, 255, 255, 0.09);
+}
+
+.mk-fallback__screen {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgba(244, 241, 234, 0.07);
+  background: #0b0d10;
+}
+
+.mk-fallback__notch {
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  width: 34px;
+  height: 3px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(244, 241, 234, 0.14);
+}
+
+.mk-fallback__generic {
+  height: 100%;
+  padding: 8% 9%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mk-fallback__eyebrow {
+  font-family: var(--mk-font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mk-accent);
+}
+
+.mk-fallback__title {
+  margin: 0;
+  font-family: var(--mk-font-display);
+  font-size: clamp(0.95rem, 2.2vw, 1.35rem);
+  line-height: 1.2;
+  color: var(--mk-fg);
+}
+
+.mk-fallback__lines {
+  display: grid;
+  gap: 7px;
+  margin-top: auto;
+}
+
+.mk-fallback__lines span {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(244, 241, 234, 0.1);
+}
+
+.mk-fallback__lines span:nth-child(1) {
+  width: 82%;
+}
+.mk-fallback__lines span:nth-child(2) {
+  width: 64%;
+}
+.mk-fallback__lines span:nth-child(3) {
+  width: 44%;
+  background: rgba(255, 106, 26, 0.32);
+}
+
+.mk-fallback__note {
+  margin: 0;
+  font-family: var(--mk-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mk-dim);
+}
+
+/* ------------------------------------------------------------------ hud */
+
+.mk-hud {
+  position: absolute;
+  left: clamp(10px, 1.6vw, 20px);
+  bottom: clamp(10px, 1.6vw, 20px);
+  z-index: 6;
+  min-width: 196px;
+  padding: 8px 10px;
+  border: 1px solid rgba(244, 241, 234, 0.16);
+  border-radius: 8px;
+  background: rgba(8, 9, 11, 0.84);
+  backdrop-filter: blur(8px);
+  font-family: var(--mk-font-mono);
+  font-size: 10.5px;
+  line-height: 1.6;
+  color: #cfcac1;
+  pointer-events: none;
+}
+
+.mk-hud__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.mk-hud__row span {
+  color: #7d7870;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 9px;
+}
+
+.mk-hud__row b {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------- compact */
+
+@media (max-width: 899px) {
+  .mk-scene {
+    --mk-stage-height: clamp(280px, 46svh, 400px);
+  }
+
+  .mk-scene__grid {
+    display: block;
+    padding-inline: var(--mk-gutter, 18px);
+  }
+
+  /* The stage pins to the top of the screen for the whole section and the
+     chapters scroll over it as opaque cards. Simpler than the desktop split,
+     but the scene never disappears while you are reading. */
+  .mk-scene__media {
+    position: sticky;
+    top: 0;
+    z-index: 0;
+    height: var(--mk-stage-height);
+  }
+
+  .mk-stage {
+    position: relative;
+    height: 100%;
+  }
+
+  .mk-scene__story {
+    position: relative;
+    z-index: 1;
+  }
+
+  .mk-chapters__item {
+    min-height: 0;
+    padding-block: 7vh;
+  }
+
+  .mk-chapter {
+    max-width: none;
+    padding: 20px 18px;
+    border: 1px solid var(--mk-line-soft);
+    border-radius: 16px;
+    background: var(--mk-bg);
+    opacity: 1;
+    transform: none;
+  }
+
+  .mk-chapter__body {
+    max-width: none;
+  }
+
+  .mk-scene__cta {
+    padding-block: 20px 64px;
+  }
+
+  .mk-stage__frame {
+    inset: 6px;
+  }
+}
+
+/* --------------------------------------------------------------- motion */
+
+.mk-scene[data-reduced="true"] .mk-chapter {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-chapter,
+  .mk-poster,
+  .mk-button {
+    transition: none !important;
+  }
+
+  .mk-chapter {
+    opacity: 1;
+    transform: none;
+  }
+
+  .mk-button:hover {
+    transform: none;
+  }
+}
