@@ -1,0 +1,25 @@
+{
+  "id": "dark-theme-link-token",
+  "version": "1",
+  "status": "verified",
+  "tags": [
+    "ui",
+    "tokens",
+    "dark-theme",
+    "accessibility"
+  ],
+  "preconditions": [
+    "A navigation link renders on a dark surface",
+    "The link inherits the browser default color instead of the project semantic color"
+  ],
+  "source": "Controlled tests/fixtures/ui-system and tests/run-ui-reuse.py; local working-tree implementation on 2026-11-05",
+  "expected": "Shared navigation-card text uses the project role with adequate contrast in both themes",
+  "reproduction": "Run UI fixture with dark theme and omit the Card text-color token mapping; axe reports serious color-contrast failure",
+  "rootCause": "The shared card style did not map link color to the semantic text role, leaving browser blue on a dark background",
+  "fix": "Define the color once in the shared Card style using the existing semantic token; retain separate navigation and checkbox contracts",
+  "verification": {
+    "before": "Light theme and new-screen check pass; dark theme fails with axe color-contrast, ratio 1.67",
+    "after": "Both themes and new-screen UI checks pass; dialog focus restoration, selection and navigation contracts retained"
+  },
+  "exceptions": "Do not normalize artwork colors or distinct semantic link/status roles without checking the project theme contract"
+}

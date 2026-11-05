@@ -1,0 +1,6 @@
+rules:
+  - id: python-shell-true-review
+    languages: [python]
+    severity: WARNING
+    message: Review shell=True for untrusted input; prefer an argv command without shell expansion.
+    pattern: subprocess.$FUNC(..., shell=True, ...)

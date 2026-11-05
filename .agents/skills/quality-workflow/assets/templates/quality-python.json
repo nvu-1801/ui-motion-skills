@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "profile": "python",
+  "checks": [
+    {
+      "id": "test",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests"
+      ],
+      "required": true,
+      "timeoutSeconds": 600
+    }
+  ]
+}

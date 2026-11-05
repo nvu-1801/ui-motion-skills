@@ -1,0 +1,17 @@
+{
+  "name": "ui-reuse-fixture",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "test": "npm run build && node --test tests/contracts.test.mjs",
+    "test:ui": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@axe-core/playwright": "4.14.0",
+    "typescript": "5.9.3"
+  }
+}

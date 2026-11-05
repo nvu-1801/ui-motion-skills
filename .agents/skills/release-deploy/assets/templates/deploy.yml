@@ -1,0 +1,47 @@
+# Trusted caller only; configure environment protection and provider auth separately.
+name: Verified deployment
+on:
+  workflow_call:
+    inputs:
+      verify-command:
+        required: true
+        type: string
+      deploy-command:
+        required: true
+        type: string
+      smoke-command:
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
+jobs:
+  deploy:
+    name: Deploy and smoke test
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a
+        with:
+          persist-credentials: false
+      - name: Verify revision
+        env:
+          VERIFY_COMMAND: ${{ inputs.verify-command }}
+        run: |
+          test -n "$VERIFY_COMMAND"
+          bash -euo pipefail -c "$VERIFY_COMMAND"
+      - name: Deploy verified revision
+        env:
+          DEPLOY_COMMAND: ${{ inputs.deploy-command }}
+        run: |
+          test -n "$DEPLOY_COMMAND"
+          bash -euo pipefail -c "$DEPLOY_COMMAND"
+      - name: Smoke test deployment
+        env:
+          SMOKE_COMMAND: ${{ inputs.smoke-command }}
+        run: |
+          test -n "$SMOKE_COMMAND"
+          bash -euo pipefail -c "$SMOKE_COMMAND"

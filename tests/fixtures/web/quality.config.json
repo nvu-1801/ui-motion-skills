@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "profile": "web",
+  "checks": [
+    {
+      "id": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "required": true,
+      "timeoutSeconds": 120
+    },
+    {
+      "id": "test",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "required": true,
+      "timeoutSeconds": 120
+    },
+    {
+      "id": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "required": true,
+      "timeoutSeconds": 120
+    }
+  ]
+}

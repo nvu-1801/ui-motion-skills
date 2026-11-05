@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "button",
+      "kind": "component",
+      "role": "Button",
+      "sources": [
+        "src/components/Button.tsx",
+        "src/theme/tokens.css"
+      ],
+      "summary": "Primary button and approved variants; verify in target project",
+      "reviewState": "candidate",
+      "symbol": "Button",
+      "importPath": "@/components/Button",
+      "variants": [
+        "primary",
+        "secondary"
+      ],
+      "themes": [
+        "light",
+        "dark"
+      ]
+    }
+  ]
+}

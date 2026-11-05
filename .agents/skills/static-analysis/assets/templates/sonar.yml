@@ -1,0 +1,39 @@
+name: SonarQube
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: sonar-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  sonar:
+    name: Scan and quality gate
+    environment: quality-analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Check integration configuration
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+          SONAR_PROJECT_KEY: ${{ vars.SONAR_PROJECT_KEY }}
+        run: |
+          test -n "$SONAR_TOKEN" || { echo 'SONAR_TOKEN missing'; exit 1; }
+          test -n "$SONAR_HOST_URL" || { echo 'SONAR_HOST_URL missing'; exit 1; }
+          test -n "$SONAR_PROJECT_KEY" || { echo 'SONAR_PROJECT_KEY missing'; exit 1; }
+      - uses: SonarSource/sonarqube-scan-action@2ee10424dc885fe18ce449af6fde7a07fe49cd38
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+          SONAR_PROJECT_KEY: ${{ vars.SONAR_PROJECT_KEY }}
+        with:
+          args: -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+      - uses: SonarSource/sonarqube-quality-gate-action@3cfda8eca512232cb42bd40fd01567cba471db39
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}

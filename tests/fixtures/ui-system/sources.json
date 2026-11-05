@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "button",
+      "kind": "component",
+      "role": "Button",
+      "sources": [
+        "src/ui.ts",
+        "src/models.ts",
+        "public/tokens.css"
+      ],
+      "summary": "Primary and secondary actions with default/compact size",
+      "reviewState": "verified",
+      "examples": [
+        "src/screens.ts"
+      ],
+      "symbol": "Button",
+      "importPath": "./ui.js",
+      "variants": [
+        "primary",
+        "secondary",
+        "default",
+        "compact"
+      ]
+    },
+    {
+      "id": "dialog",
+      "kind": "component",
+      "role": "Dialog",
+      "sources": [
+        "src/ui.ts",
+        "public/tokens.css"
+      ],
+      "summary": "Confirmation modal with focus restoration",
+      "reviewState": "verified",
+      "examples": [
+        "src/screens.ts"
+      ],
+      "symbol": "Dialog",
+      "importPath": "./ui.js"
+    },
+    {
+      "id": "text",
+      "kind": "component",
+      "role": "Text",
+      "sources": [
+        "src/ui.ts",
+        "public/tokens.css"
+      ],
+      "summary": "Heading body and caption semantic roles",
+      "reviewState": "verified",
+      "examples": [
+        "src/screens.ts"
+      ],
+      "symbol": "Text",
+      "importPath": "./ui.js"
+    },
+    {
+      "id": "link-card",
+      "kind": "component",
+      "role": "Navigation card",
+      "sources": [
+        "src/ui.ts",
+        "public/tokens.css"
+      ],
+      "summary": "Navigation contract; do not merge into checkbox selection",
+      "reviewState": "verified",
+      "examples": [
+        "src/screens.ts"
+      ],
+      "symbol": "LinkCard",
+      "importPath": "./ui.js"
+    },
+    {
+      "id": "selection-card",
+      "kind": "component",
+      "role": "Selection card",
+      "sources": [
+        "src/ui.ts",
+        "public/tokens.css"
+      ],
+      "summary": "Checkbox selection contract; keep distinct from navigation",
+      "reviewState": "verified",
+      "examples": [
+        "src/screens.ts"
+      ],
+      "symbol": "SelectionCard",
+      "importPath": "./ui.js"
+    },
+    {
+      "id": "theme",
+      "kind": "token",
+      "role": "Typography color spacing",
+      "sources": [
+        "public/tokens.css"
+      ],
+      "summary": "Light/dark semantic tokens",
+      "reviewState": "verified",
+      "examples": [
+        "src/screens.ts"
+      ],
+      "themes": [
+        "light",
+        "dark"
+      ]
+    },
+    {
+      "id": "product",
+      "kind": "model",
+      "role": "Product",
+      "sources": [
+        "src/models.ts"
+      ],
+      "summary": "Shared product type owned by model module",
+      "reviewState": "verified",
+      "examples": [
+        "src/screens.ts"
+      ],
+      "symbol": "Product",
+      "importPath": "./models.js"
+    },
+    {
+      "id": "price",
+      "kind": "formatter",
+      "role": "Price",
+      "sources": [
+        "src/format.ts",
+        "src/models.ts"
+      ],
+      "summary": "Shared cents formatter",
+      "reviewState": "verified",
+      "examples": [
+        "src/screens.ts"
+      ],
+      "symbol": "priceLabel",
+      "importPath": "./format.js"
+    }
+  ]
+}

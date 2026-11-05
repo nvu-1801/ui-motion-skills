@@ -1,5 +1,13 @@
 # Kế hoạch xây dựng UI Motion Skills
 
+## Tái sử dụng UI và phát triển skill
+
+Đã bổ sung 7 skill, registry UI tra cứu theo nhu cầu, fixture và build phân phối. Xem [kế hoạch và trạng thái](UI_REUSE_AND_SKILL_EVOLUTION_PLAN.md). Benchmark agent A/B và tiết kiệm token chưa được đo.
+
+## Mở rộng chất lượng và tự động hóa
+
+Đã triển khai bộ skill dùng lại, định tuyến tiết kiệm token, installer nhiều file, template và kiểm chứng local. Xem [kế hoạch mở rộng](QUALITY_AUTOMATION_PLAN.md) và [kết quả thực tế](docs/VERIFICATION.md). Pipeline của project đích được cài/xuất riêng; kho này không tự deploy demo.
+
 ## Mục tiêu
 
 Một repo GitHub độc lập chứa skill hướng dẫn agent thiết kế và triển khai UI ngay trong codebase. Đầu ra cần có bố cục, typography, hình ảnh và chuyển động phù hợp với thương hiệu, đồng thời giữ đúng nghiệp vụ của từng dự án. Bộ skill dùng được qua repo GitHub hoặc bản clone local.

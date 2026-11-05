@@ -1,0 +1,12 @@
+name: Invalid expression fixture
+on: push
+permissions:
+  contents: read
+jobs:
+  check:
+    name: Expression validation
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "$REVISION"
+        env:
+          REVISION: ${{ github.not_a_real_field }}

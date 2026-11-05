@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "reuse-button",
+      "prompt": "Add the existing primary action to a new settings screen while preserving the current design system.",
+      "split": "train",
+      "requiredSkills": [
+        "ui-system-reuse"
+      ],
+      "allowedSkills": [
+        "ui-system-reuse",
+        "ui-components",
+        "ui-visual-qa"
+      ]
+    },
+    {
+      "id": "screen-only-variant",
+      "prompt": "Make only the checkout confirmation button compact; keep the other primary actions unchanged.",
+      "split": "holdout",
+      "requiredSkills": [
+        "ui-system-reuse"
+      ],
+      "allowedSkills": [
+        "ui-system-reuse",
+        "ui-components",
+        "ui-visual-qa"
+      ]
+    },
+    {
+      "id": "keep-distinct-contracts",
+      "prompt": "Remove duplicated styling between navigation cards and selection cards without changing their different interactions.",
+      "split": "holdout",
+      "requiredSkills": [
+        "ui-system-reuse"
+      ],
+      "allowedSkills": [
+        "ui-system-reuse",
+        "ui-components",
+        "ui-visual-qa"
+      ]
+    },
+    {
+      "id": "ci-only",
+      "prompt": "Diagnose a workflow expression error. No application UI changes are requested.",
+      "split": "train",
+      "requiredSkills": [
+        "github-actions"
+      ],
+      "allowedSkills": [
+        "github-actions"
+      ]
+    },
+    {
+      "id": "non-ui-api",
+      "prompt": "Investigate an authorization regression in an API using the existing domain contract.",
+      "split": "holdout",
+      "requiredSkills": [
+        "security-review"
+      ],
+      "allowedSkills": [
+        "security-review",
+        "bug-reproduction",
+        "business-logic-review"
+      ]
+    }
+  ]
+}

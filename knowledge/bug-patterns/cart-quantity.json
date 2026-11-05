@@ -1,0 +1,25 @@
+{
+  "id": "cart-quantity-off-by-one",
+  "status": "verified",
+  "tags": [
+    "python",
+    "typescript",
+    "money",
+    "boundary"
+  ],
+  "preconditions": [
+    "Subtotal equals integer unit price multiplied by nonnegative integer quantity",
+    "No shipping, minimum order, discount or tier-price rule applies"
+  ],
+  "source": "Controlled fixtures in tests/fixtures/python and tests/fixtures/web; implementation based on repository 2c88c54ed58bc167c4a4fceeb52e5e2027cb4705 plus this working-tree change",
+  "expected": "125 cents x 3 units = 375; zero units = 0; negative quantity is rejected",
+  "reproduction": "Run tests/run-portability.py: inject quantity + 1 into the cart subtotal, then run each installed quality helper",
+  "rootCause": "Adding one to the count charges for an unrequested unit; nonzero and zero boundary cases violate the same invariant",
+  "fix": "Multiply by the actual validated count; keep domain rules distinct from array-index adjustments",
+  "verification": {
+    "before": "Python: 2 of 3 contract tests failed; TypeScript: 2 of 3 failed; runner returned 1 for each",
+    "after": "Both 3-test contract suites pass after restoring actual quantity; TypeScript typecheck and build also pass"
+  },
+  "exceptions": "Do not apply this arithmetic to shipping-inclusive, minimum-order or tier-pricing totals without reading their contract",
+  "version": "1"
+}

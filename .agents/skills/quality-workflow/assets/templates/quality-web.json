@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "profile": "web",
+  "checks": [
+    {
+      "id": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "required": true,
+      "timeoutSeconds": 600
+    },
+    {
+      "id": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "required": true,
+      "timeoutSeconds": 600
+    },
+    {
+      "id": "test",
+      "command": [
+        "npm",
+        "run",
+        "test:ci"
+      ],
+      "required": true,
+      "timeoutSeconds": 600
+    },
+    {
+      "id": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "required": true,
+      "timeoutSeconds": 600
+    }
+  ]
+}

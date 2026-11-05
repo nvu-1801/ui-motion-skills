@@ -1,0 +1,5 @@
+runner:
+  eslint:
+    cmd: npx --no-install eslint -f rdjson .
+    format: rdjson
+    level: error
