@@ -23,9 +23,9 @@ Assert (-not (Test-Path (Join-Path $folder 'scripts/__pycache__'))) 'Runtime cac
 Assert (Test-Path (Join-Path $folder 'assets/schemas/finding.schema.json')) 'Nested schema not installed'
 Assert (-not (Test-Path (Join-Path $target '.agents/skills/release-deploy'))) 'Unselected skill installed'
 $manifest = Join-Path $folder '.ui-motion-skills.manifest.json'
-$before = (Get-Item $manifest).LastWriteTimeUtc
+$before = (Get-Item -LiteralPath $manifest -Force).LastWriteTimeUtc
 & $install -Target $target -Skill quality-workflow,ui-visual-qa
-Assert ((Get-Item $manifest).LastWriteTimeUtc -eq $before) 'Idempotent install rewrote manifest'
+Assert ((Get-Item -LiteralPath $manifest -Force).LastWriteTimeUtc -eq $before) 'Idempotent install rewrote manifest'
 $count++
 Set-Content (Join-Path $folder 'personal.txt') 'user-owned'
 & $install -Target $target -Skill quality-workflow
